@@ -1,0 +1,9 @@
+type Mutation{
+    addContent(contentInput: ContentInput): ContentOutput
+    addCommentToContent(contentId: String, comment: String): ContentOutput
+    addGenre(genreInput: GenreInput): GenreOutput
+    deleteContentById(contentId: String): Boolean
+    deleteGenreById(genreId: String): Boolean
+    deleteGenreByIdFromContentOnly(contentId: String, genreId: String): Boolean
+    deleteCommentOfContent(contentId: String, commentIndex: Int): Boolean
+}

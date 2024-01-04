@@ -1,0 +1,5 @@
+input ContentInput{
+    title: String
+    releaseDate: String
+    genresIds: [String]
+}

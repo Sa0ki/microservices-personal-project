@@ -1,0 +1,3 @@
+input GenreInput{
+    name: String
+}

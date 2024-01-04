@@ -1,0 +1,6 @@
+type ContentOutput{
+    title: String
+    releaseDate: String
+    genresNames: [String]
+    comments: [String]
+}

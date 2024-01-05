@@ -2,8 +2,10 @@ package com.kinan.contentservice.controllers;
 
 import com.kinan.contentservice.dtos.ContentDto;
 import com.kinan.contentservice.dtos.GenreDto;
+import com.kinan.contentservice.models.Comment;
 import com.kinan.contentservice.models.Content;
 import com.kinan.contentservice.models.Genre;
+import com.kinan.contentservice.models.Rating;
 import com.kinan.contentservice.service.ContentService;
 import lombok.AllArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -25,7 +27,7 @@ public class ContentController {
         return contentService.getContents();
     }
     @QueryMapping
-    public List<String> getCommentsOfContent(@Argument String contentId){
+    public List<Comment> getCommentsOfContent(@Argument String contentId){
         return contentService.getCommentsOfContent(contentId);
     }
     @QueryMapping
@@ -37,12 +39,12 @@ public class ContentController {
         return contentService.addContent(contentInput);
     }
     @MutationMapping
-    public ContentDto addCommentToContent(@Argument String contentId, @Argument String comment){
+    public ContentDto addCommentToContent(@Argument String contentId, @Argument Comment comment){
         return contentService.addCommentToContent(contentId, comment);
     }
     @MutationMapping
-    public ContentDto addStarsToContent(@Argument String contentId, @Argument Double stars){
-        return contentService.addStarsToContent(contentId, stars);
+    public ContentDto addRatingToContent(@Argument String contentId, @Argument Rating rating){
+        return contentService.addRatingToContent(contentId, rating);
     }
     @MutationMapping
     public Boolean deleteContentById(@Argument String contentId){

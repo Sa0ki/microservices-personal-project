@@ -1,0 +1,4 @@
+type CommentOutput{
+    message: String
+    idUser: String
+}

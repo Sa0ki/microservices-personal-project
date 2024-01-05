@@ -1,0 +1,4 @@
+input CommentInput{
+    message: String
+    idUser: String
+}

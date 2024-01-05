@@ -1,5 +1,5 @@
 type Query{
     getContents: [ContentOutput]
-    getCommentsOfContent(contentId: String): [String]
+    getCommentsOfContent(contentId: String): [CommentOutput]
     getGenresWithContents: [GenreOutput]
 }

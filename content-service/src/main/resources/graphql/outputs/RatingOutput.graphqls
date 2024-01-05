@@ -1,0 +1,4 @@
+type RatingOutput{
+    stars: Float,
+    idUser: String
+}

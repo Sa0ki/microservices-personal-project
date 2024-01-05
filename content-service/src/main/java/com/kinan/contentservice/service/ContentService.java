@@ -5,8 +5,10 @@ import com.kinan.contentservice.dtos.ContentDto;
 import com.kinan.contentservice.dtos.GenreDto;
 import com.kinan.contentservice.mappers.ContentMapper;
 import com.kinan.contentservice.mappers.GenreMapper;
+import com.kinan.contentservice.models.Comment;
 import com.kinan.contentservice.models.Content;
 import com.kinan.contentservice.models.Genre;
+import com.kinan.contentservice.models.Rating;
 import com.kinan.contentservice.repositories.IContentRepository;
 import com.kinan.contentservice.repositories.IGenreRepository;
 import lombok.AllArgsConstructor;
@@ -38,7 +40,7 @@ public class ContentService {
       });
         return contentDtos;
     }
-    public List<String> getCommentsOfContent(String contentId){
+    public List<Comment> getCommentsOfContent(String contentId){
         Content content = getContentById(contentId);
         if(content == null) return null;
         return content.getComments();
@@ -75,7 +77,7 @@ public class ContentService {
         contentDto.setGenresNames(getGenresOfContentDto(genres));
         return contentDto;
     }
-    public ContentDto addCommentToContent(String contentId, String comment){
+    public ContentDto addCommentToContent(String contentId, Comment comment){
         Content content = getContentById(contentId);
         if(content == null) return null;
         if(content.getComments() == null)
@@ -87,10 +89,10 @@ public class ContentService {
         contentDto.setGenresNames(getGenresOfContentDto(genres));
         return contentDto;
     }
-    public ContentDto addStarsToContent(String contentId, Double stars){
+    public ContentDto addRatingToContent(String contentId, Rating rating){
         Content content = getContentById(contentId);
         if(content == null) return null;
-        content.getStars().add(stars);
+        content.getRatings().add(rating);
         content = contentRepository.save(content);
         List<Genre> genres = genreService.getGenresByIds(content.getGenresIds());
         ContentDto contentDto = ContentMapper.fromContentToContentDto(content);
@@ -136,9 +138,9 @@ public class ContentService {
     }
     public Boolean deleteStarsOfContent(String contentId, int starsIndex){
         Content content = getContentById(contentId);
-        if(content == null || starsIndex < 0 || starsIndex >= content.getStars().size())
+        if(content == null || starsIndex < 0 || starsIndex >= content.getRatings().size())
             return false;
-        content.getStars().remove(starsIndex);
+        content.getRatings().remove(starsIndex);
         contentRepository.save(content);
         return true;
     }

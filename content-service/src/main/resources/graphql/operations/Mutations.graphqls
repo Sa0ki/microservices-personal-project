@@ -1,7 +1,7 @@
 type Mutation{
     addContent(contentInput: ContentInput): ContentOutput
-    addCommentToContent(contentId: String, comment: String): ContentOutput
-    addStarsToContent(contentId: String, stars: Float): ContentOutput
+    addCommentToContent(contentId: String, comment: CommentInput): ContentOutput
+    addRatingToContent(contentId: String, rating: RatingInput): ContentOutput
     addGenre(genreInput: GenreInput): GenreOutput
     deleteContentById(contentId: String): Boolean
     deleteGenreById(genreId: String): Boolean

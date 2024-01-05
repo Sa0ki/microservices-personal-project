@@ -25,6 +25,6 @@ public class Content {
     private String title;
     private Date releaseDate;
     private List<String> genresIds = new ArrayList<>();
-    private List<String> comments = new ArrayList<>();
-    private List<Double> stars = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
+    private List<Rating> ratings = new ArrayList<>();
 }

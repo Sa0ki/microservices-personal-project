@@ -2,6 +2,6 @@ type ContentOutput{
     title: String
     releaseDate: String
     genresNames: [String]
-    comments: [String]
-    stars: [Float]
+    comments: [CommentOutput]
+    ratings: [RatingOutput]
 }

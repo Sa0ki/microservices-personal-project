@@ -4,6 +4,7 @@ import com.kinan.contentservice.models.Comment;
 import com.kinan.contentservice.models.Rating;
 import lombok.*;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ContentDto {
     private String title;
-    private Date releaseDate;
+    private String image;
+    private Integer year;
     private List<String> genresNames = new ArrayList<>();
     private List<Comment> comments = new ArrayList<>();
     private List<Rating> ratings = new ArrayList<>();

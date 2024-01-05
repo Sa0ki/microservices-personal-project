@@ -1,5 +1,6 @@
 input ContentInput{
     title: String
-    releaseDate: String
+    year: Int
     genresIds: [String]
+    image: String
 }

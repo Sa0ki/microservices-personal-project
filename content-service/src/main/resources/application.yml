@@ -5,9 +5,17 @@ spring:
     allow-bean-definition-overriding: true
   data:
     mongodb:
-      uri: mongodb+srv://esaadkinan:whatulookingat@cluster0.subirch.mongodb.net/content-database?retryWrites=true&w=majority
+      uri: "mongodb+srv://esaadkinan:____@cluster0.subirch.mongodb.net/content-database?retryWrites=true&w=majority"
   graphql:
     graphiql:
       enabled: true
+    cors:
+      allowed-origins: "http://localhost:4200"
+      allowed-origin-patterns: "*"
+      allowed-methods: "GET, POST, PUT, DELETE"
+      allowed-headers: "*"
+      exposed-headers: "*"
+      allow-credentials: true
+      max-age: 1800s
 server:
   port: 8081

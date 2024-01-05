@@ -19,4 +19,5 @@ public class ContentDto {
     private Date releaseDate;
     private List<String> genresNames = new ArrayList<>();
     private List<String> comments = new ArrayList<>();
+    private List<Double> stars = new ArrayList<>();
 }

@@ -41,6 +41,10 @@ public class ContentController {
         return contentService.addCommentToContent(contentId, comment);
     }
     @MutationMapping
+    public ContentDto addStarsToContent(@Argument String contentId, @Argument Double stars){
+        return contentService.addStarsToContent(contentId, stars);
+    }
+    @MutationMapping
     public Boolean deleteContentById(@Argument String contentId){
         return contentService.deleteContentById(contentId);
     }
@@ -55,5 +59,9 @@ public class ContentController {
     @MutationMapping
     public Boolean deleteCommentOfContent(@Argument String contentId, @Argument int commentIndex){
         return contentService.deleteCommentOfContent(contentId, commentIndex);
+    }
+    @MutationMapping
+    public Boolean deleteStarsOfContent(@Argument String contentId, @Argument int starsIndex){
+        return contentService.deleteStarsOfContent(contentId, starsIndex);
     }
 }

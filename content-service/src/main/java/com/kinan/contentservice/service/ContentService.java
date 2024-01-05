@@ -1,5 +1,6 @@
 package com.kinan.contentservice.service;
 
+import com.kinan.contentservice.controllers.ContentController;
 import com.kinan.contentservice.dtos.ContentDto;
 import com.kinan.contentservice.dtos.GenreDto;
 import com.kinan.contentservice.mappers.ContentMapper;
@@ -31,7 +32,9 @@ public class ContentService {
       List<ContentDto> contentDtos = new ArrayList<>();
       contents.forEach(c -> {
           List<Genre> genres = genreService.getGenresByIds(c.getGenresIds());
-          contentDtos.add(setGenresNamesToContentDto(c, genres));
+          ContentDto contentDto = ContentMapper.fromContentToContentDto(c);
+          contentDto.setGenresNames(getGenresOfContentDto(genres));
+          contentDtos.add(contentDto);
       });
         return contentDtos;
     }
@@ -50,7 +53,9 @@ public class ContentService {
             contents.forEach(c -> {
                 if(g.getContentsIds() != null && g.getContentsIds().contains(c.getId())){
                     List<Genre> genresOfContent = genreService.getGenresByIds(c.getGenresIds());
-                    genreDto.getContents().add(setGenresNamesToContentDto(c, genresOfContent));
+                    ContentDto contentDto = ContentMapper.fromContentToContentDto(c);
+                    contentDto.setGenresNames(getGenresOfContentDto(genres));
+                    genreDto.getContents().add(contentDto);
                 }
             });
             genreDtos.add(genreDto);
@@ -66,7 +71,9 @@ public class ContentService {
             g.getContentsIds().add(savedContent.getId());
             });
         genreService.updateAllGenres(genres);
-        return setGenresNamesToContentDto(content, genres);
+        ContentDto contentDto = ContentMapper.fromContentToContentDto(content);
+        contentDto.setGenresNames(getGenresOfContentDto(genres));
+        return contentDto;
     }
     public ContentDto addCommentToContent(String contentId, String comment){
         Content content = getContentById(contentId);
@@ -76,7 +83,19 @@ public class ContentService {
         content.getComments().add(comment);
         contentRepository.save(content);
         List<Genre> genres = genreService.getGenresByIds(content.getGenresIds());
-        return setGenresNamesToContentDto(content, genres);
+        ContentDto contentDto = ContentMapper.fromContentToContentDto(content);
+        contentDto.setGenresNames(getGenresOfContentDto(genres));
+        return contentDto;
+    }
+    public ContentDto addStarsToContent(String contentId, Double stars){
+        Content content = getContentById(contentId);
+        if(content == null) return null;
+        content.getStars().add(stars);
+        content = contentRepository.save(content);
+        List<Genre> genres = genreService.getGenresByIds(content.getGenresIds());
+        ContentDto contentDto = ContentMapper.fromContentToContentDto(content);
+        contentDto.setGenresNames(getGenresOfContentDto(genres));
+        return contentDto;
     }
     public Boolean deleteContentById(String contentId){
         Content content = getContentById(contentId);
@@ -109,19 +128,25 @@ public class ContentService {
     public Boolean deleteCommentOfContent(String contentId, int commentIndex){
         Content content = getContentById(contentId);
         if(content == null) return false;
-        if(content.getComments() == null || content.getComments().isEmpty())
+        if(content.getComments() == null || commentIndex < 0 || commentIndex >= content.getComments().size())
             return false;
         content.getComments().remove(commentIndex);
         contentRepository.save(content);
         return true;
     }
-    public ContentDto setGenresNamesToContentDto(Content content, List<Genre> genres){
-        ContentDto contentDto = ContentMapper.fromContentToContentDto(content);
+    public Boolean deleteStarsOfContent(String contentId, int starsIndex){
+        Content content = getContentById(contentId);
+        if(content == null || starsIndex < 0 || starsIndex >= content.getStars().size())
+            return false;
+        content.getStars().remove(starsIndex);
+        contentRepository.save(content);
+        return true;
+    }
+    public List<String> getGenresOfContentDto(List<Genre> genres){
+        List<String> genresNames = new ArrayList<>();
         genres.forEach(g -> {
-            if(contentDto.getGenresNames() == null)
-                contentDto.setGenresNames(new ArrayList<>());
-            contentDto.getGenresNames().add(g.getName());
+            genresNames.add(g.getName());
         });
-        return contentDto;
+        return genresNames;
     }
 }

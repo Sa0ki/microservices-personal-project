@@ -5,7 +5,7 @@ spring:
     allow-bean-definition-overriding: true
   data:
     mongodb:
-      uri: mongodb+srv://esaadkinan:_______@cluster0.subirch.mongodb.net/content-database?retryWrites=true&w=majority
+      uri: mongodb+srv://esaadkinan:____@cluster0.subirch.mongodb.net/content-database?retryWrites=true&w=majority
   graphql:
     graphiql:
       enabled: true

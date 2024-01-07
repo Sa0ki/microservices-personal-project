@@ -1,0 +1,20 @@
+<div *ngIf="contentForm">
+  <form *ngIf="getGenresComponent.genres" [formGroup]="contentForm" (ngSubmit)="addContent()">
+    <label for="title">Titre:</label>
+    <input type="text" id="title" formControlName="title" />
+
+    <label for="year">Année:</label>
+    <input type="number" id="year" formControlName="year" />
+
+    <label for="genres">Genres:</label>
+    <select id="genres" formControlName="genresIds" multiple>
+      <option *ngFor="let genre of getGenresComponent.genres" [value]="genre.id">{{ genre.name }}</option>
+    </select>
+
+    <input type="file" id="image" formControlName="image" (change)="handleFileInput($event)" />
+
+    <!-- Ajoutez des champs pour les genresIds si nécessaire -->
+
+    <button type="submit" [disabled]="contentForm.invalid">Ajouter</button>
+  </form>
+</div>

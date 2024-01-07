@@ -1,0 +1,7 @@
+<div>
+  <form [formGroup]="contentForm" (ngSubmit)="addGenre()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" />
+    <button type="submit" [disabled]="contentForm.invalid">Ajouter</button>
+  </form>
+</div>

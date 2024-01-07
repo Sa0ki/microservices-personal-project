@@ -1,4 +1,5 @@
 type GenreOutput{
+    id: String
     name: String
     contents: [ContentOutput]
 }

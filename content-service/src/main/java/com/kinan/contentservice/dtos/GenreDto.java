@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenreDto {
+    private String id;
     private String name;
     private List<ContentDto> contents = new ArrayList<>();
 }

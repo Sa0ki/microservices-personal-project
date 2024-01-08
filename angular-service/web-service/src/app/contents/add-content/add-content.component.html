@@ -1,20 +1,31 @@
-<div *ngIf="contentForm">
+<div *ngIf="contentForm" class="container mt-4">
   <form *ngIf="getGenresComponent.genres" [formGroup]="contentForm" (ngSubmit)="addContent()">
-    <label for="title">Titre:</label>
-    <input type="text" id="title" formControlName="title" />
+    <div class="col-2">
+      <label for="title" class="form-label">Titre:</label>
+      <input type="text" id="title" formControlName="title" class="form-control" />
+    </div>
 
-    <label for="year">Année:</label>
-    <input type="number" id="year" formControlName="year" />
+    <div class="col-2">
+      <label for="year" class="form-label">Année:</label>
+      <input type="number" id="year" formControlName="year" class="form-control" />
+    </div>
 
-    <label for="genres">Genres:</label>
-    <select id="genres" formControlName="genresIds" multiple>
-      <option *ngFor="let genre of getGenresComponent.genres" [value]="genre.id">{{ genre.name }}</option>
-    </select>
+    <div class="col-2">
+      <label for="genres" class="form-label">Genres:</label>
+      <select id="genres" formControlName="genresIds" multiple class="form-select">
+        <option *ngFor="let genre of getGenresComponent.genres" [value]="genre.id">{{ genre.name }}</option>
+      </select>
+    </div>
 
-    <input type="file" id="image" formControlName="image" (change)="handleFileInput($event)" />
+    <div class="col-4">
+      <label for="image" class="form-label">Image:</label>
+      <input type="file" id="image" formControlName="image" class="form-control" (change)="handleFileInput($event)" />
+    </div>
 
     <!-- Ajoutez des champs pour les genresIds si nécessaire -->
 
-    <button type="submit" [disabled]="contentForm.invalid">Ajouter</button>
+    <button type="submit" [disabled]="contentForm.invalid" class="btn btn-primary">
+      <i class="bi bi-plus"></i> Add
+    </button>
   </form>
 </div>

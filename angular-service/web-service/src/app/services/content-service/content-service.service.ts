@@ -22,9 +22,12 @@ export class ContentServiceService {
       variables: {
         title: formValue.title,
         year: formValue.year,
-        image: "assets/" + formValue.image.split("\\")[2],
+        image: this.getUrlFromImage(formValue.image),
         genresIds: formValue.genresIds,
       },
     });
+  }
+  private getUrlFromImage(image): string {
+    return "assets/" + image.split("\\")[2]
   }
 }

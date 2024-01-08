@@ -9,6 +9,7 @@ import {ContentServiceService} from "../../services/content-service/content-serv
 export class ContentsComponent implements OnInit, OnDestroy{
   contents: any;
   private querySubscription: Subscription;
+  searchTerm: string;
   constructor(private contentService: ContentServiceService) {
   }
   ngOnInit(): void {
@@ -24,6 +25,13 @@ export class ContentsComponent implements OnInit, OnDestroy{
       }
     );
   }
+  async searchContent() {
+    await this.getContents();
+     this.contents = this.contents.filter((content) => {
+      return content.title.toLowerCase().includes(this.searchTerm.toLowerCase());
+    });
+  }
+
   ngOnDestroy(): void {
     this.querySubscription.unsubscribe();
   }

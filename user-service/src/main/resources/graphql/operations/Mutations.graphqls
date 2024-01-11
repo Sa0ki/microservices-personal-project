@@ -1,0 +1,4 @@
+type Mutation{
+    addUser(userInput: UserInput): UserOutput
+    deleteUserById(id: String): Boolean
+}

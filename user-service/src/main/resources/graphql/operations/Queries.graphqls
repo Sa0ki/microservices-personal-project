@@ -1,0 +1,4 @@
+type Query{
+    getUserById(id: String): UserOutput
+    getUsers: [UserOutput]
+}

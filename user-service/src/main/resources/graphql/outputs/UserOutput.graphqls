@@ -1,0 +1,8 @@
+type UserOutput{
+    id: String
+    firstName: String
+    lastName: String
+    birthDate: String
+    email: String
+    password: String
+}

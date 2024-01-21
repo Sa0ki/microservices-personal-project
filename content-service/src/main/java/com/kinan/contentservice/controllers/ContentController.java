@@ -59,11 +59,14 @@ public class ContentController {
         return contentService.deleteGenreByIdFromContentOnly(contentId, genreId);
     }
     @MutationMapping
-    public Boolean deleteCommentOfContent(@Argument String contentId, @Argument int commentIndex){
-        return contentService.deleteCommentOfContent(contentId, commentIndex);
+    public Boolean deleteCommentOfContent(@Argument String contentId, @Argument int commentIndex,
+                                          @Argument String idUser){
+        return contentService.deleteCommentOfContent(contentId, commentIndex, idUser);
     }
     @MutationMapping
-    public Boolean deleteStarsOfContent(@Argument String contentId, @Argument int starsIndex){
-        return contentService.deleteStarsOfContent(contentId, starsIndex);
+    public Boolean deleteStarsOfContent(@Argument String contentId, @Argument int starsIndex, @Argument String idUser){
+        return contentService.deleteStarsOfContent(contentId, starsIndex, idUser);
     }
+
+    //-----------------------------FEIGN--------------------------------------------------------
 }

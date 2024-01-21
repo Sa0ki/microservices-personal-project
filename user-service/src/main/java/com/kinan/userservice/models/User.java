@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Eren
@@ -25,5 +26,6 @@ public class User {
     private LocalDate birthDate;
     private String email;
     private String password;
-
+    List<Comment> comments;
+    List<Rating> ratings;
 }

@@ -6,6 +6,6 @@ type Mutation{
     deleteContentById(contentId: String): Boolean
     deleteGenreById(genreId: String): Boolean
     deleteGenreByIdFromContentOnly(contentId: String, genreId: String): Boolean
-    deleteCommentOfContent(contentId: String, commentIndex: Int): Boolean
+    deleteCommentOfContent(contentId: String, commentIndex: Int, idUser: String): Boolean
     deleteStarsOfContent(contentId: String, starsIndex: Int): Boolean
 }

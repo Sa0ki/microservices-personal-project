@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Eren
@@ -26,9 +27,13 @@ public class ContentService {
     private IContentRepository contentRepository;
     private IGenreRepository genreRepository;
     private GenreService genreService;
+    public List<Content> getOriginalContents(){
+        return contentRepository.findAll();
+    }
     public Content getContentById(String contentId){
         return contentRepository.findById(contentId).orElse(null);
     }
+
     public List<ContentDto> getContents(){
       List<Content> contents = contentRepository.findAll();
       List<ContentDto> contentDtos = new ArrayList<>();
@@ -80,8 +85,6 @@ public class ContentService {
     public ContentDto addCommentToContent(String contentId, Comment comment){
         Content content = getContentById(contentId);
         if(content == null) return null;
-        if(content.getComments() == null)
-            content.setComments(new ArrayList<>());
         content.getComments().add(comment);
         contentRepository.save(content);
         List<Genre> genres = genreService.getGenresByIds(content.getGenresIds());
@@ -127,22 +130,30 @@ public class ContentService {
         genreRepository.save(genre);
         return true;
     }
-    public Boolean deleteCommentOfContent(String contentId, int commentIndex){
+    public Boolean deleteCommentOfContent(String contentId, int commentIndex, String idUser){
         Content content = getContentById(contentId);
         if(content == null) return false;
         if(content.getComments() == null || commentIndex < 0 || commentIndex >= content.getComments().size())
             return false;
-        content.getComments().remove(commentIndex);
-        contentRepository.save(content);
-        return true;
+        Comment comment = content.getComments().get(commentIndex);
+        if(Objects.equals(comment.getIdUser(), idUser)){
+            content.getComments().remove(commentIndex);
+            contentRepository.save(content);
+            return true;
+        }
+        return false;
     }
-    public Boolean deleteStarsOfContent(String contentId, int starsIndex){
+    public Boolean deleteStarsOfContent(String contentId, int ratingIndex, String idUser){
         Content content = getContentById(contentId);
-        if(content == null || starsIndex < 0 || starsIndex >= content.getRatings().size())
+        if(content == null || ratingIndex < 0 || ratingIndex >= content.getRatings().size())
             return false;
-        content.getRatings().remove(starsIndex);
-        contentRepository.save(content);
-        return true;
+        Rating rating = content.getRatings().get(ratingIndex);
+        if(rating.getIdUser().equals(idUser)){
+            content.getRatings().remove(ratingIndex);
+            contentRepository.save(content);
+            return true;
+        }
+        return false;
     }
     public List<String> getGenresOfContentDto(List<Genre> genres){
         List<String> genresNames = new ArrayList<>();
@@ -151,4 +162,7 @@ public class ContentService {
         });
         return genresNames;
     }
+
+    //--------------------------FEIGN SERVICE--------------------------------------
+
 }

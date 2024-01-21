@@ -1,0 +1,9 @@
+type ContentOutput{
+    id: String
+    title: String
+    year: Int
+    genresIds: [String]
+    comments: [CommentOutput]
+    ratings: [RatingOutput]
+    image: String
+}

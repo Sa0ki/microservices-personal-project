@@ -1,4 +1,8 @@
 type Mutation{
     addUser(userInput: UserInput): UserOutput
     deleteUserById(id: String): Boolean
+    addComment(comment: CommentInput, idContent: String, idUser: String): Boolean
+    deleteComment(idContent: String, indexComment: Int, idUser: String): Boolean
+    addRating(rating: RatingInput, idContent: String, idUser: String): Boolean
+    deleteRating(idContent: String, indexRating: Int, idUser: String): Boolean
 }

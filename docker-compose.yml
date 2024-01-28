@@ -1,0 +1,47 @@
+services:
+  eureka-discovery-service:
+    build: ./eureka-discovery-service
+    container_name: eureka-discovery-service
+    ports:
+      - '8761:8761'
+    expose:
+      - '8761'
+    restart: always
+  config-service:
+    build: ./config-service
+    container_name: config-service
+    ports:
+      - '9090:9090'
+    expose:
+      - '9090'
+    restart: always
+    depends_on:
+      - eureka-discovery-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://eureka-discovery-service:8761/eureka
+  content-service:
+    build: ./content-service
+    container_name: content-service
+    ports:
+      - '8081:8081'
+    expose:
+      - '8081'
+    restart: always
+    depends_on:
+      - config-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://eureka-discovery-service:8761/eureka
+      - CONFIG_SERVICE_URL=http://http://config-service:9090/content-service/default
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - '8082:8082'
+    expose:
+      - '8082'
+    restart: always
+    depends_on:
+      - content-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://eureka-discovery-service:8761/eureka
+      - CONFIG_SERVICE_URL=http://http://config-service:9090/user-service/default
